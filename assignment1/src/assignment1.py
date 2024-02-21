@@ -19,8 +19,8 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 nlp = spacy.load("en_core_web_md")
 #
-input_directory = os.path.join('in', 'USEcorpus')
-output_directory = 'tables'
+input_directory = os.path.join('..','in', 'USEcorpus')
+output_directory = os.path.join('..','out')
 
 def process_folder(folderpath, nlp):
     #Process all text files in a folder.
