@@ -31,7 +31,7 @@ python src/assignment1.py
 ```
 
 ## The Code
-The script utilizes the SpaCy library to tokenize and analyze the text, extracting part-of-speech tags and named entities. It iterates over each text file in each subfolder of the input directory, cleans the text by removing metadata and , and then calculates the relative frequency of nouns, verbs, adjectives, and adverbs per 10,000 words (I use spacy to not count punctuation as words, which would impact the relative frequency of the POS tags).
+The script utilizes the SpaCy library to tokenize and analyze the text, extracting part-of-speech tags and named entities. It iterates over each text file in each subfolder of the input directory, cleans the text by removing metadata, and then calculates the relative frequency of nouns, verbs, adjectives, and adverbs per 10,000 words (I use spacy to not count punctuation as words, which would impact the relative frequency of the POS tags).
 
 Additionally, it counts the total number of unique entities (persons, locations, and organizations) mentioned in each text. The extracted information is handled using pandas dataframes and is saved in CSV format, with each sub-folder corresponding to a separate CSV file containing a table with filenames and their extracted linguistic and entity information. The code is modularized for maintainability and efficiency, with functions to process individual files and entire folders, allowing for easy scalability and customization.
 
