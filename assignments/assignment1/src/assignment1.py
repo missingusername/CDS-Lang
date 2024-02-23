@@ -1,25 +1,22 @@
-#   Assignment 1
-#   Made by: Albin & Victor :))
-
-#   place .py file in 'src' folder. 
-
-#   pip install spacy pandas tqdm
-#   python -m spacy download en_core_web_md
-
-
 import os
-import spacy
-import pandas as pd
 from collections import Counter
 import warnings
-from tqdm import tqdm
 import re
+
+import spacy
+import pandas as pd
+from tqdm import tqdm
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 nlp = spacy.load("en_core_web_md")
-#
-input_directory = os.path.join('..','in', 'USEcorpus')
+
+# Get the directory where the script is located
+script_directory = os.path.dirname(os.path.realpath(__file__))
+# Change the current working directory to the directory of the script
+os.chdir(script_directory)
+
+input_directory = ('../in/USEcorpus')
 output_directory = os.path.join('..','out')
 
 def process_folder(folderpath, nlp):
@@ -38,7 +35,7 @@ def process_folder(folderpath, nlp):
 
 def process_file(filepath, nlp):
     #Process a single text file.
-    #we use latin1 / ISO-8859-1 because the text is encoded with finnish characters
+    #i use latin1 / ISO-8859-1 because the text is encoded with swedish characters
     with open(filepath, encoding='latin1') as f:
         text = f.read()
 
@@ -78,6 +75,7 @@ def calculate_frequency(pos_counts, num_words, frequency_check=10000):
     return frequency
 
 def main():
+    print("Current working directory:", os.getcwd())
     for folder in os.listdir(input_directory):
         folderpath = os.path.join(input_directory, folder)
         print(f'Processing folder: {folder}')
