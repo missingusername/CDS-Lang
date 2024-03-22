@@ -28,13 +28,13 @@ cd  cds-lang-git/assignments/assignment3
 | word | -w | What word to search for similar words for | *REQUIRED |
 | save | -s | whether to save a .csv file of the gathered data | OPTIONAL |
 
-To run the program, you can run the appropriate run script, again depending on your system. Here's an example of how to run the script with arguments: 
+To run the program, you can run the appropriate run script, again depending on your system. Here's an example of how to run the script with arguments:
 ```sh
-./unix_run.sh -a abba -w love -s
+./win_run.sh -a metallica -w god -s
 ```
 or
 ```sh
-./win_run.sh -a metallica -w god -s
+./unix_run.sh -a abba -w love -s
 ```
 If the script is denied permission, you can try running `chmod +x *`, which will grant execution privileges to the scripts in the current directory. Then try running the script again.
 
