@@ -1,6 +1,9 @@
 
 # CDS Language Analytics: Assignment #3 - Query expansion with word embeddings
 
+## Description
+This script utilizes word embeddings to find out how many songs by a given artist contain words similar to a given search word.
+
 ## Setup
 
 1. Make sure to have python and Git Bash installed!
@@ -29,11 +32,17 @@ To run the program, you can run the appropriate run script, again depending on y
 ```sh
 ./unix_run.sh -a abba -w love -s
 ```
+or
+```sh
+./win_run.sh -a metallica -w god -s
+```
 If the script is denied permission, you can try running `chmod +x *`, which will grant execution privileges to the scripts in the current directory. Then try running the script again.
 
 ## The Code
-The code works by first turning the data into a pandas dataframe, and filters it such that only songs by the specified artist remains. Then we make a list of the 10 most simliar words to the search word, using gensim "most_similar", as well as the search word itself.
+The code works by first turning the data into a pandas dataframe, and filters it such that only songs by the specified artist remains.
+We use gensim to load the model `glove-wiki-gigaword-50`, which is trained on 2B tweets (27B tokens, 1.2M vocabulary)
+Then we generate a list of the 10 most simliar words to the search word, using gensim "most_similar", as well as the search word itself.
 Then, we simply go through every song by that artist, checking if any of the similar words appear in the songs text. We keep track of this in a dictionary, w´counting how many times each of the similar words occurs.
 This all gets converted to its own dataframe, where we keep track of the song, if it it contained any of the similar words, and how many times each similar word appeared in the text.
-This is the dataframe that you can optionally have saved to the `/out` folder.
+This is the dataframe that you can optionally have saved to the `/out` folder *(some output examples can also be found there)*.
 Lastly, you get some stats about the data printed to the terminal, telling you how many of the songs featured similar words.
