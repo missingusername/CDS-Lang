@@ -41,6 +41,7 @@ filtered_df = df[df['artist'].str.lower() == args.artist.lower()]   # Filter the
 similar_words_tuples = model.most_similar(args.word, topn=10)   #using gensim "most_similar" to get a list of tuples of the most similar words, and how similar they are
 
 similar_words = [tuple[0] for tuple in similar_words_tuples]    #making a new list of just the words from the tuples.
+similar_words.append(args.word)
 
 def preprocess_text(text):
     # Convert text to lowercase

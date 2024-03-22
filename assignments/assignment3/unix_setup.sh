@@ -7,7 +7,7 @@ python -m venv env
 source ./env/bin/activate
 
 #update pip
-py -m pip install --upgrade pip
+pip install --upgrade pip
 
 # Install required libraries from requirements.txt
 pip install -r requirements.txt
@@ -15,4 +15,4 @@ pip install -r requirements.txt
 # Deactivate the virtual environment
 deactivate
 
-#bash setup.sh
+#bash unix_setup.sh

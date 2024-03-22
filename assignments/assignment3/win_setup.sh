@@ -15,4 +15,4 @@ pip install -r requirements.txt
 # Deactivate the virtual environment
 deactivate
 
-#bash setup.sh
+#bash win_setup.sh
