@@ -14,6 +14,7 @@ out_folder = os.path.join('..', 'out')
 
 # Function to initialize the sentiment analysis pipeline
 def initialize_pipeline():
+    print('test')
     return pipeline("text-classification", 
                     model="j-hartmann/emotion-english-distilroberta-base", 
                     return_all_scores=True)
@@ -55,21 +56,15 @@ def create_df_from_unique(script_df, target_column):
 
 # Main function to orchestrate the entire process
 def main():
+    # Check if season_labels.csv already exists
+    if os.path.exists(os.path.join(out_folder, 'season_labels.csv')):
+        print("season_labels.csv already exists. Skipping script execution.")
+        return
+
     # Step 1: Read the CSV file into a pandas DataFrame
     script_df = pd.read_csv(os.path.join(in_folder, 'Game_of_Thrones_Script.csv'))
 
-    # Initialize CodeCarbon tracker
-    tracker = EmissionsTracker(
-        project_name="Emotion_classification",
-        experiment_id="emotion_classifier",
-        output_dir=out_folder,
-        output_file="emotion_emissions.csv"
-        )
-
-    # Track classifier initialization emissions
-    tracker.start_task("initialize classifier")
     classifier = initialize_pipeline()
-    tracker.stop_task()
 
     # Initialize season_labels_df
     season_labels_df = create_df_from_unique(script_df, 'Season')
@@ -88,8 +83,6 @@ def main():
     # Save the DataFrame to a CSV file
     season_labels_df.to_csv(os.path.join(out_folder, 'season_labels.csv'), index=False)
 
-    # Stop the tracker at the end of execution
-    tracker.stop()
 
 if __name__ == "__main__":
     main()
