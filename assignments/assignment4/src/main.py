@@ -1,61 +1,95 @@
 import os
 import pandas as pd
-from matplotlib import pyplot as plt
 from transformers import pipeline
-import codecarbon
 from tqdm import tqdm
+from codecarbon import EmissionsTracker
 
 # Get the directory where the script is located
 script_directory = os.path.dirname(os.path.realpath(__file__))
 # Change the current working directory to the directory of the script
 os.chdir(script_directory)
 
-classifier = pipeline("text-classification", 
-                      model="j-hartmann/emotion-english-distilroberta-base", 
-                      return_all_scores=True)
+in_folder = os.path.join('..', 'in')
+out_folder = os.path.join('..', 'out')
 
-# Step 2: Define the extract_label function
-def extract_label(sentence):
+# Function to initialize the sentiment analysis pipeline
+def initialize_pipeline():
+    return pipeline("text-classification", 
+                    model="j-hartmann/emotion-english-distilroberta-base", 
+                    return_all_scores=True)
+
+# Function to extract the emotion label from a sentence using the initialized pipeline
+def extract_label(classifier, sentence):
     predictions = classifier(sentence)
     label = max(predictions[0], key=lambda x: x['score'])['label']
     return label
 
-# Step 1: Read the CSV file into a pandas DataFrame
-script_df = pd.read_csv('../in/Game_of_Thrones_Script.csv')
-
-# Step 2: Get the unique values from the "seasons" column
-seasons = script_df['Season'].unique().tolist()
-
-# Step 3: Create an empty DataFrame called season_labels_df with the unique seasons
-season_labels_df = pd.DataFrame({'Season': seasons})
-
-# Set 'Season' as the index column in season_labels_df.
-# This allows us to use 'Season' as a key to locate specific cells later on.
-# 'inplace=True' modifies the DataFrame directly, instead of returning a new DataFrame.
-season_labels_df.set_index('Season', inplace=True)
-
-print(season_labels_df)
-
-# Step 4: Process each row in script_df
-for index, row in tqdm(script_df.iterrows(), total=len(script_df), desc="Processing Sentences"):
-    season = row['Season']
-    sentence = str(row['Sentence'])     #making sure that the sentence is treated as a string, to combat sentences like e.g. "None" which would get treated as a None value.
+# Function to process each row in the script dataframe
+def process_rows(script_df, output_df, classifier):
+    for index, row in tqdm(script_df.iterrows(), total=len(script_df), desc="Processing Sentences"):
+        season = row['Season']
+        sentence = str(row['Sentence'])  # Ensure sentence is treated as string
+        
+        # Print additional information without disrupting the progress bar
+        tqdm.write(f"Processing sentence {index} in Season {season}: {sentence[:30]}...")
+        
+        label = extract_label(classifier, sentence)
+        
+        # If the label doesn't already exist as a column, create it
+        if label not in output_df.columns:
+            output_df[label] = 0
+        
+        # Increment the count for the label in the appropriate season row
+        output_df.at[season, label] += 1
+        
+        # Print current season labels without disrupting the progress bar
+        tqdm.write(f"Current season labels:\n{output_df.to_string()}\n")
     
-    # Print additional information without disrupting the progress bar
-    tqdm.write(f"Processing sentence {index} in {season}: {sentence[:30]}...")
+    return output_df
+
+# Function to create the initial season_labels_df DataFrame
+def create_df_from_unique(script_df, target_column):
+    unique_values = script_df[target_column].unique().tolist()
+    new_df = pd.DataFrame({target_column: unique_values})
+    return new_df
+
+# Main function to orchestrate the entire process
+def main():
+    # Step 1: Read the CSV file into a pandas DataFrame
+    script_df = pd.read_csv(os.path.join(in_folder, 'Game_of_Thrones_Script.csv'))
+
+    # Initialize CodeCarbon tracker
+    tracker = EmissionsTracker(
+        project_name="Emotion_classification",
+        experiment_id="emotion_classifier",
+        output_dir=out_folder,
+        output_file="emotion_emissions.csv"
+        )
+
+    # Track classifier initialization emissions
+    tracker.start_task("initialize classifier")
+    classifier = initialize_pipeline()
+    tracker.stop_task()
+
+    # Initialize season_labels_df
+    season_labels_df = create_df_from_unique(script_df, 'Season')
+
+    # Set 'Season' as the index column in season_labels_df.
+    # This allows us to use 'Season' as a key to locate specific cells later on.
+    # 'inplace=True' modifies the DataFrame directly, instead of returning a new DataFrame.
+    season_labels_df.set_index('Season', inplace=True)
     
-    label = extract_label(sentence)
+    # Process each row in script_df
+    season_labels_df = process_rows(script_df, season_labels_df, classifier)
     
-    # If the label doesn't already exist as a column, create it
-    if label not in season_labels_df.columns:
-        season_labels_df[label] = 0
+    # Reset index for final CSV output
+    season_labels_df.reset_index(inplace=True)
+    
+    # Save the DataFrame to a CSV file
+    season_labels_df.to_csv(os.path.join(out_folder, 'season_labels.csv'), index=False)
 
-    # Increment the count for the label in the appropriate season row
-    season_labels_df.at[season, label] += 1
-    # Print additional information without disrupting the progress bar
-    tqdm.write(f"Current season labels:\n{season_labels_df.to_string()}\n")
+    # Stop the tracker at the end of execution
+    tracker.stop()
 
-# return the normal index column
-season_labels_df.reset_index(inplace=True)
-
-season_labels_df.to_csv('../out/test.csv')
+if __name__ == "__main__":
+    main()
