@@ -30,13 +30,12 @@ cd  cds-lang-git/assignments/assignment3
 
 To run the program, you can run the appropriate run script, again depending on your system. Here's an example of how to run the script with arguments:
 ```sh
-./win_run.sh -a metallica -w god -s
+bash win_run.sh -a metallica -w god -s
 ```
 or
 ```sh
-./unix_run.sh -a abba -w love -s
+bash unix_run.sh -a abba -w love -s
 ```
-If the script is denied permission, you can try running `chmod +x *`, which will grant execution privileges to the scripts in the current directory. Then try running the script again.
 
 ## The Code
 The code works by first turning the data into a pandas dataframe, and filters it such that only songs by the specified artist remains.
