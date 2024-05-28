@@ -12,7 +12,6 @@ git clone https://github.com/missingusername/cds-lang-git.git
 3. Navigate to the project folder for this assignment:
 
 ```sh
-cd assignments
 cd assignment1
 ```
 
