@@ -3,11 +3,14 @@
 # Activate the virtual environment
 source env/Scripts/activate
 
-# Run the label_extraction.py script
-python src/label_extraction.py
+# Run the vectorizer.py script first.
+python src/vectorizer.py
 
-# Run the plot.py script with command-line arguments
-python src/plot.py "$@"
+# Run the LR.py script afterwards
+python src/LR.py
+
+# Run the MLP.py script
+python src/MLP.py
 
 # Deactivate the virtual environment
 deactivate
