@@ -14,7 +14,6 @@ out_folder = os.path.join('..', 'out')
 
 # Function to initialize the sentiment analysis pipeline
 def initialize_pipeline():
-    print('test')
     return pipeline("text-classification", 
                     model="j-hartmann/emotion-english-distilroberta-base", 
                     return_all_scores=True)
@@ -31,8 +30,8 @@ def process_rows(script_df, output_df, classifier):
         season = row['Season']
         sentence = str(row['Sentence'])  # Ensure sentence is treated as string
         
-        # Print additional information without disrupting the progress bar
-        tqdm.write(f"Processing sentence {index} in Season {season}: {sentence[:30]}...")
+        # Print information regarding current sentence being processed
+        tqdm.write(f"Processing sentence {index} in {season}: {sentence[:30]}...")
         
         label = extract_label(classifier, sentence)
         
@@ -43,7 +42,7 @@ def process_rows(script_df, output_df, classifier):
         # Increment the count for the label in the appropriate season row
         output_df.at[season, label] += 1
         
-        # Print current season labels without disrupting the progress bar
+        # Print current season label dataframe
         tqdm.write(f"Current season labels:\n{output_df.to_string()}\n")
     
     return output_df
@@ -64,7 +63,18 @@ def main():
     # Step 1: Read the CSV file into a pandas DataFrame
     script_df = pd.read_csv(os.path.join(in_folder, 'Game_of_Thrones_Script.csv'))
 
+    # Initialize CodeCarbon tracker
+    tracker = EmissionsTracker(
+        project_name="Emotion_classification",
+        experiment_id="emotion_classifier",
+        output_dir=out_folder,
+        output_file="emotion_emissions.csv"
+    )
+
+    # Track classifier initialization emissions
+    tracker.start_task("initialize classifier")
     classifier = initialize_pipeline()
+    tracker.stop_task()
 
     # Initialize season_labels_df
     season_labels_df = create_df_from_unique(script_df, 'Season')
@@ -75,7 +85,9 @@ def main():
     season_labels_df.set_index('Season', inplace=True)
     
     # Process each row in script_df
+    tracker.start_task("Emotion label classification")
     season_labels_df = process_rows(script_df, season_labels_df, classifier)
+    tracker.stop_task()
     
     # Reset index for final CSV output
     season_labels_df.reset_index(inplace=True)
@@ -83,6 +95,8 @@ def main():
     # Save the DataFrame to a CSV file
     season_labels_df.to_csv(os.path.join(out_folder, 'season_labels.csv'), index=False)
 
+    # Stop the tracker at the end of execution
+    tracker.stop()
 
 if __name__ == "__main__":
     main()
