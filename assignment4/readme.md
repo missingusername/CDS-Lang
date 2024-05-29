@@ -39,27 +39,3 @@ bash win_run.sh -e fear neutral
 ```
 
 ## Takeaways from output
-
-<table>
-<tr><th>Logistic Regression</th><th>MLP</th></tr>
-<tr><td>
-
-| Class        | Precision | Recall | F1-Score | Support |
-|--------------|-----------|--------|----------|---------|
-| FAKE         | 0.84      | 0.81   | 0.82     | 628     |
-| REAL         | 0.82      | 0.85   | 0.83     | 639     |
-| **Accuracy** |           |        | 0.83     | 1267    |
-| **Macro Avg**| 0.83      | 0.83   | 0.83     | 1267    |
-| **Weighted Avg** | 0.83  | 0.83   | 0.83     | 1267    |
-
-</td><td>
-
-| Class        | Precision | Recall | F1-Score | Support |
-|--------------|-----------|--------|----------|---------|
-| FAKE         | 0.84      | 0.82   | 0.83     | 628     |
-| REAL         | 0.83      | 0.85   | 0.84     | 639     |
-| **Accuracy** |           |        | 0.84     | 1267    |
-| **Macro Avg**| 0.84      | 0.83   | 0.83     | 1267    |
-| **Weighted Avg** | 0.84  | 0.84   | 0.84     | 1267    |
-
-</td></tr> </table>
