@@ -1,8 +1,10 @@
 
-# CDS Language Analytics: Assignment #3 - Query expansion with word embeddings
+# CDS Language Analytics Assignment #3: Query Expansion With Word Embeddings
 
 ## Description
 This script utilizes word embeddings to find out how many songs by a given artist contain words similar to a given search word.
+
+***This code uses CodeCarbon to monitor the environmental effects of running this code. The effects of which can be found in the `out/emissions` folder***
 
 ## Setup
 
@@ -14,7 +16,7 @@ git  clone  https://github.com/missingusername/cds-lang-git.git
 ```
 3. Navigate to the project folder for this assignment:
 ```sh
-cd  cds-lang-git/assignments/assignment3
+cd  cds-lang-git/assignment3
 ```
 4. Before running the program, you first have to set up a virtual environment with the required dependencies. This can be done by simply running either  `bash win_setup.sh`  or  `bash unix_setup.sh`  depending on your system.
 
