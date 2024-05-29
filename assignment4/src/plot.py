@@ -36,7 +36,8 @@ def plot_emotion_distribution(season_labels_df, exclude_labels=None):
     exclude_str = "_excluding_" + "_".join(exclude_labels) if exclude_labels else ""
     filename = f'emotion_distribution_per_season{exclude_str}.png'
     plt.savefig(os.path.join(out_folder, filename))
-
+    plt.close()
+    
 # Function to plot the relative frequency of each emotion across all seasons
 def plot_emotion_relative_frequency(season_labels_df, exclude_labels=None):
     if exclude_labels is None:
@@ -71,7 +72,7 @@ def plot_emotion_relative_frequency(season_labels_df, exclude_labels=None):
     exclude_str = "_excluding_" + "_".join(exclude_labels) if exclude_labels else ""
     filename = f'relative_frequency_per_emotion{exclude_str}.png'
     plt.savefig(os.path.join(out_folder, filename))
-    plt.show()
+    plt.close()
 
 # Function to calculate relative frequencies of emotion labels
 def calculate_relative_frequencies(season_labels_df):
@@ -88,8 +89,9 @@ def main():
     parser.add_argument('-e', '--exclude', nargs='+', default=[], help='List of emotion labels to exclude')
     args = parser.parse_args()
 
-    exclude_labels = args.exclude
-
+    # Ensure exclude_labels are in lowercase
+    exclude_labels = [label.lower() for label in args.exclude]
+    
     print(exclude_labels)
 
     # Read season labels data
