@@ -63,5 +63,3 @@ bash win_run.sh -e fear neutral
 | **Weighted Avg** | 0.84  | 0.84   | 0.84     | 1267    |
 
 </td></tr> </table>
-
-From these 2 tabels we can see that both models actually end up performing remarkably well, and that it is hard to discern any real difference between their performances. However, we can notice that the `MLP` model does gain a small edge over the `LR` model in some areas, such as with its weighted avg. `F1-Score` being 0.1 higher.
