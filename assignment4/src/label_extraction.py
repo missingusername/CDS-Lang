@@ -4,13 +4,13 @@ from transformers import pipeline
 from tqdm import tqdm
 from codecarbon import EmissionsTracker
 
-# Get the directory where the script is located
-script_directory = os.path.dirname(os.path.realpath(__file__))
-# Change the current working directory to the directory of the script
-os.chdir(script_directory)
+def set_working_directory():
+    """Sets the working directory to the directory of the script."""
+    script_directory = os.path.dirname(os.path.realpath(__file__))
+    os.chdir(script_directory)
 
-in_folder = os.path.join('..', 'in')
-out_folder = os.path.join('..', 'out')
+in_path = os.path.join('..', 'in')
+out_path = os.path.join('..', 'out')
 
 # Function to initialize the sentiment analysis pipeline
 def initialize_pipeline():
@@ -53,21 +53,34 @@ def create_df_from_unique(script_df, target_column):
     new_df = pd.DataFrame({target_column: unique_values})
     return new_df
 
+def ensure_directory_exists(path):
+    """Ensures that the directory exists, creates it if it does not."""
+    if not os.path.exists(path):
+        os.makedirs(path)
+
 # Main function to orchestrate the entire process
 def main():
+    set_working_directory()
+
+    in_path = os.path.join('..','in')
+    out_path = os.path.join('..','out')
+
+    emissions_path = os.path.join(out_path, 'emissions')
+    ensure_directory_exists(emissions_path)
+
     # Check if season_labels.csv already exists
-    if os.path.exists(os.path.join(out_folder, 'season_labels.csv')):
+    if os.path.exists(os.path.join(out_path, 'season_labels.csv')):
         print("season_labels.csv already exists. Skipping script execution.")
         return
 
     # Step 1: Read the CSV file into a pandas DataFrame
-    script_df = pd.read_csv(os.path.join(in_folder, 'Game_of_Thrones_Script.csv'))
+    script_df = pd.read_csv(os.path.join(in_path, 'Game_of_Thrones_Script.csv'))
 
     # Initialize CodeCarbon tracker
     tracker = EmissionsTracker(
         project_name="Emotion_classification",
         experiment_id="emotion_classifier",
-        output_dir=out_folder,
+        output_dir=emissions_path,
         output_file="emotion_emissions.csv"
     )
 
@@ -93,7 +106,7 @@ def main():
     season_labels_df.reset_index(inplace=True)
     
     # Save the DataFrame to a CSV file
-    season_labels_df.to_csv(os.path.join(out_folder, 'season_labels.csv'), index=False)
+    season_labels_df.to_csv(os.path.join(out_path, 'season_labels.csv'), index=False)
 
     # Stop the tracker at the end of execution
     tracker.stop()
