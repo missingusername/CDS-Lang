@@ -126,6 +126,7 @@ def main():
 You searched for songs by: {args.artist}
 Which contained words similar to: {args.word}
 This returned the following similar words: {', '.join(similar_words)}
+
 Of the {total_count} total songs by {args.artist}:
     {true_count} songs contained words similar to {args.word}
     {false_count} songs did not contain words similar to {args.word}
