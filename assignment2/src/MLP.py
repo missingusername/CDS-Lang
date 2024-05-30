@@ -69,7 +69,7 @@ def main():
         project_name="MLP classification",
         experiment_id="MLP_classifier",
         output_dir=emissions_path,
-        output_file="MLP_emissions.csv"
+        output_file="Text_classification.csv"
     )
 
     tracker.start()

@@ -62,7 +62,7 @@ def main():
         project_name="Data vectorization",
         experiment_id="Data_vectorizer",
         output_dir=emissions_path,
-        output_file="Vectorizer_emissions.csv"
+        output_file="Text_classification.csv"
     )
     
     tracker.start()

@@ -64,7 +64,7 @@ def main():
         project_name="LR classification",
         experiment_id="LR_classifier",
         output_dir=emissions_path,
-        output_file="LR_emissions.csv"
+        output_file="Text_classification.csv"
     )
 
     tracker.start()
