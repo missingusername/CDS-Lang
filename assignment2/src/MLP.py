@@ -11,15 +11,6 @@ def set_working_directory():
     script_directory = os.path.dirname(os.path.realpath(__file__))
     os.chdir(script_directory)
 
-def load_vectorizer(path):
-    """Loads the saved vectorizer from the specified path."""
-    return load(path)
-
-def load_data(file_name):
-    """Loads data from a CSV file."""
-    data_path = os.path.join('..', 'in', file_name)
-    return pd.read_csv(data_path)
-
 def preprocess_data(data):
     """Prepares feature set and target variable for machine learning."""
     X = data['text']
@@ -58,6 +49,8 @@ def save_metrics(metrics, path):
 def main():
     set_working_directory()
 
+    in_path = os.path.join('..', 'in')
+
     out_path = os.path.join('..', 'out')
 
     models_path = os.path.join(out_path, 'models')
@@ -72,26 +65,40 @@ def main():
         output_file="Text_classification.csv"
     )
 
-    tracker.start()
-
+    tracker.start_task('load vectorizer')    
     vectorized_data_path = os.path.join(models_path, 'tfidf_vectorizer.joblib')
-    vectorizer = load_vectorizer(vectorized_data_path)
+    vectorizer = load(vectorized_data_path)
+    tracker.stop_task()
     
+    tracker.start_task('load data')    
     file_name = 'fake_or_real_news.csv'
-    data = load_data(file_name)
+    file_path = os.path.join(in_path, file_name)
+    data = pd.read_csv(file_path)
+    tracker.stop_task()
     
+    tracker.start_task('split data')    
     X_train, X_test, y_train, y_test = preprocess_data(data)
+    tracker.stop_task()
     
+    tracker.start_task('transform data')        
     X_train_feats, X_test_feats = transform_data(vectorizer, X_train, X_test)
+    tracker.stop_task()
     
+    tracker.start_task('initiate MLP classifier')    
     classifier = create_classifier()
+    tracker.stop_task()
     
+    tracker.start_task('train MLP classifier')    
     classifier = train_classifier(classifier, X_train_feats, y_train)
+    tracker.stop_task()
     
+    tracker.start_task('evaluate MLP classifier')
     classifier_metrics = evaluate_classifier(classifier, X_test_feats, y_test)
-    
-    
+    tracker.stop_task()
+        
+    tracker.start_task('save MLP classifier')
     save_classifier(classifier, models_path)
+    tracker.stop_task()
     
     save_metrics(classifier_metrics, out_path)
     
