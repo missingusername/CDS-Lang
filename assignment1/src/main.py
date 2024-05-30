@@ -97,15 +97,19 @@ def main():
     )
     tracker.start()
 
+    tracker.start_task("Load spaCy model")
     nlp = spacy.load("en_core_web_md")
+    tracker.stop_task()
 
+    tracker.start_task("Feature extraction")
     print("Current working directory:", os.getcwd())
     for folder in sorted(os.listdir(data_folder)):
         current_folder_path = os.path.join(data_folder, folder)
         print(f'Processing folder: {folder}')
         df = process_folder(current_folder_path, nlp)
         df.to_csv(os.path.join(out_path, f'{folder} table.csv'), index=False)
-        
+    tracker.stop_task()
+    
     tracker.stop()
 
 if __name__ == "__main__":
