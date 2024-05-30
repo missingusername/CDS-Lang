@@ -9,9 +9,6 @@ def set_working_directory():
     script_directory = os.path.dirname(os.path.realpath(__file__))
     os.chdir(script_directory)
 
-in_path = os.path.join('..', 'in')
-out_path = os.path.join('..', 'out')
-
 # Function to initialize the sentiment analysis pipeline
 def initialize_pipeline():
     return pipeline("text-classification", 
