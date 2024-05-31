@@ -28,6 +28,7 @@ cd  cds-lang-git/assignment3
 |--|--|--|--|
 | artist | -a | What artist to search for | *REQUIRED |
 | word | -w | What word to search for similar words for | *REQUIRED |
+| number | -n | How many similar words to find for the search word (default=10) | OPTIONAL |
 | save | -s | whether to save a .csv file of the gathered data | OPTIONAL |
 
 To run the program, you can run the appropriate run script, again depending on your system. Here's an example of how to run the script with arguments:
