@@ -64,3 +64,6 @@ Of the 113 total songs by abba:
 ```
 From this printout we can see that it tells us what artist we searched for (`abba`), and what search word we used (`love`). We also get to see what similar words the models found for the search word (`dream, life, dreams, loves, me, my, mind, loving, wonder, soul, love`). We can also see how many songs that artist has in the dataset (`113`). It then tells us how many of the songs contained any of the similar words (`106`), as well as how many songs didn't (`7`). Lastly, we get the calculated percentage of how many songs contained similar words (`93.81%`).
 
+## Limitations & Improvements
+
+The script takes a while to load the gensim model, and it does so every time you run the program. If one wanted to search for multiple artists and words, it might be more efficient to run the script recursively. Here, you could initialize the script and the model, and then enter what artist and word you want to search for, get teh results, reset the gathered data, and enter another artist and search word.
