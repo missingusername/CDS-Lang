@@ -23,7 +23,7 @@ def plot_emissions_for_folder(folder_path, out_path):
     folder_name = os.path.basename(folder_path)
     
     # Initialize master plot for the folder
-    fig, axes = plt.subplots(1, len(all_data), figsize=(len(all_data) * 8 ,6))
+    fig, axes = plt.subplots(1, len(all_data), figsize=(len(all_data) * 8, 6))
     if len(all_data) == 1:
         axes = [axes]  # Ensure axes is a list even if there's only one subplot
     
@@ -41,17 +41,20 @@ def plot_emissions_for_folder(folder_path, out_path):
         df_sorted = df.sort_values(by='emissions', ascending=False)
         
         # Plot bar chart for current project
-        ax.bar(df_sorted['task_name'], df_sorted['emissions'], color='skyblue')
+        bars = ax.bar(df_sorted['task_name'], df_sorted['emissions'], color='skyblue')
         ax.set_title(f'{project_name} - Emissions')
         ax.set_xlabel('Task Name')
         ax.set_ylabel('Emissions')
         ax.set_xticklabels(df_sorted['task_name'], rotation=45, ha='right')
         ax.ticklabel_format(style='plain', axis='y')
+        
+        # Add text on top of bars to show emissions value with 7 decimal places
+        ax.bar_label(bars, fmt='%.7f')
     
     # Set master plot title and save it
     fig.suptitle(f'Emissions Summary - {folder_name}')
     plt.tight_layout()
-    plt.savefig(os.path.join(out_path, f'{folder_name} chart.png'))
+    plt.savefig(os.path.join(out_path, f'{folder_name}_chart.png'))
     plt.close()
     
     return assignment_emissions
@@ -59,28 +62,33 @@ def plot_emissions_for_folder(folder_path, out_path):
 def plot_assignment_emissions(assignment_emissions, folder_names, out_path):
     """Plot bar chart for total emissions across assignments."""
     plt.figure(figsize=(10, 6))
-    plt.bar(folder_names, assignment_emissions, color='skyblue')
+    bars = plt.bar(folder_names, assignment_emissions, color='skyblue')
     plt.xlabel('Assignment')
     plt.ylabel('Total Emissions')
     plt.title('Total Emissions per Assignment')
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
-    plt.savefig(os.path.join(out_path, 'assignment emissions.png'))
+    
+    # Add text on top of bars to show emissions value with 7 decimal places
+    plt.bar_label(bars, fmt='%.7f')
+    
+    plt.savefig(os.path.join(out_path, 'assignment_emissions.png'))
     plt.close()
 
 def plot_task_emissions(all_task_emissions, out_path):
-    """Plot pie chart for emissions distribution across tasks."""
+    """Plot bar chart for emissions distribution across tasks."""
     task_names = list(all_task_emissions.keys())
     task_emissions = list(all_task_emissions.values())
     
     plt.figure(figsize=(15, 10))
-    plt.bar(task_names, task_emissions, color='skyblue')
+    bars = plt.bar(task_names, task_emissions, color='skyblue')
     plt.xlabel('Task Name')
     plt.ylabel('Emissions')
     plt.title('Emissions Distribution by Task')
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
-    plt.savefig(os.path.join(out_path, 'all task emissions.png'))
+    
+    plt.savefig(os.path.join(out_path, 'all_task_emissions.png'))
     plt.close()
 
 def main():
