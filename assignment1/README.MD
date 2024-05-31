@@ -117,3 +117,7 @@ The script utilizes the SpaCy library to tokenize and analyze the text, extracti
 Additionally, it counts the total number of unique entities (persons, locations, and organizations) mentioned in each text. The extracted information is handled using pandas dataframes and is saved in CSV format, with each sub-folder corresponding to a separate CSV file containing a table with filenames and their extracted linguistic and entity information. The code is modularized for readability, with functions to process individual files and entire folders.
 
 TQDM is used for showing the scripts progress in its processing of each folder, helps the user track how far along the script is in its processing of the data.
+
+## Limitations and Improvements
+
+While the end results fulfills the requirements set forth in the assignment, the tables generated are still hard to really understand and gain any real insight from without some sort of visualization to accompany them. 
