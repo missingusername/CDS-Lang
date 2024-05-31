@@ -13,6 +13,7 @@ parser = argparse.ArgumentParser(
 )
 parser.add_argument('-a', '--artist', required=True, help='What artist to search for. Required.')
 parser.add_argument('-w', '--word', required=True, help='What word to search for similar words to. Required.')
+parser.add_argument('-n', '--number', required=False, default=10, type=int, help='How many similar words to find. Optional.')
 parser.add_argument('-s', '--save', required=False, action='store_true', help='Include this flag to save a csv of the results. Optional.')
 args = parser.parse_args()
 
@@ -111,7 +112,7 @@ def main():
     filtered_df = filter_data(df, args.artist)
 
     tracker.start_task('find similar words')
-    similar_words = get_similar_words(model, args.word)
+    similar_words = get_similar_words(model, args.word, args.number)
     tracker.stop_task()
     
     tracker.start_task('scan songs for similar words')
