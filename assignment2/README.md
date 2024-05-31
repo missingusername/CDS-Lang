@@ -57,3 +57,7 @@ bash unix_run.sh
 </td></tr> </table>
 
 From these 2 tables we can see that both models actually end up performing remarkably well, and that it is hard to discern any real difference between their performances. However, we can notice that the `MLP` model does gain a small edge over the `LR` model in some areas, such as with its weighted avg. `F1-Score` being 0.1 higher.
+
+## Limitations & Improvements
+
+While the reults seem to indicate the models being basically tied in terms of peformance, this could (potentially) be due to the train-test-split of the data providing equal results. To gain a more well-rounded picture of the models, one could use cross vaildation to see how the models would fare on average over multiple tries. This would of course also increase the power consumption and emissions of thie script, since it would train the models e.g. 10 more times, just to see if the model training is reliable.
