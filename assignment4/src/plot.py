@@ -2,6 +2,7 @@ import os
 import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
+from codecarbon import EmissionsTracker
 
 def set_working_directory():
     """Sets the working directory to the directory of the script."""
@@ -83,24 +84,52 @@ def calculate_relative_frequencies(season_labels_df):
             relative_frequencies.at[season, label] = season_labels_df.at[season, label] / total_count 
     return relative_frequencies
 
+def ensure_directory_exists(path):
+    """Ensures that the directory exists, creates it if it does not."""
+    if not os.path.exists(path):
+        os.makedirs(path)
+
 def main():
     set_working_directory()
+    
+    out_path = os.path.join('..','out')
 
-    out_path = os.path.join('..', 'out')
+    emissions_path = os.path.join(out_path, 'emissions')
+    ensure_directory_exists(emissions_path)
 
-        # Parse command-line arguments
+    # Initialize CodeCarbon tracker
+    tracker = EmissionsTracker(
+        project_name="Emotion_plotting",
+        experiment_id="emotion_plotter",
+        output_dir=emissions_path,
+        output_file="emotion_emissions.csv"
+    )
+    tracker.start()
+
+    # Parse command-line arguments
+    tracker.start_task('Argparse')
     parser = argparse.ArgumentParser(description='Plot emotion distribution and their relative frequency across seasons.')
     parser.add_argument('-e', '--exclude', nargs='+', default=[], help='List of emotion labels to exclude')
     args = parser.parse_args()
+    tracker.stop_task()
 
     # Ensure exclude_labels are in lowercase
     exclude_labels = [label.lower() for label in args.exclude]
 
     # Read season labels data
+    tracker.start_task('read emotion data')
     season_labels_df = pd.read_csv(os.path.join(out_path, 'season_labels.csv'))
+    tracker.stop_task()
     
+    tracker.start_task('plot emotion distribution')
     plot_emotion_distribution(season_labels_df, out_path, exclude_labels)
+    tracker.stop_task()
+
+    tracker.start_task('plot relative frequency')
     plot_emotion_relative_frequency(season_labels_df, out_path, exclude_labels)
+    tracker.stop_task()
+
+    tracker.stop()
 
 if __name__ == "__main__":
     main()
