@@ -1,5 +1,5 @@
 # CDS Language Analytics: Assignment #1
-This script aims to extract linugistic features from a text corpus ([USEcorpus](https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2457)), and arrange these feature statistics into organized `.csv` files.
+This script aims to extract linguistic features from a text corpus ([USEcorpus](https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2457)), and arrange these feature statistics into organized `.csv` files.
 
 ***This code uses CodeCarbon to monitor the environmental effects of running this code. The effects of which can be found in the `out/emissions` folder***
 ## Setup
@@ -29,28 +29,28 @@ bash win_setup.sh
 
 5. Before we can run the script, we first need to get the actual data. You can click [here](https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2457) to download the dataset directly.
 The `USEcorpus.zip` can also be downloaded manually from the [Oxford Text Archive](https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2457).
- When downloaded, unzip the folder and place "USEcorpus" in the `in` folder of the assignment1 directoy.
+ When downloaded, unzip the folder and place "USEcorpus" in the `in` folder of the assignment1 directory.
 This should leave you with a file structure like this:
 
 ```
 assignment1/
-    ├── in/
-    │   └── USEcorpus/
-    │       ├── a1/
-    │       ├── a2/
-    │       ├── a3/
-    │       ├── ...
-    │       └── c1/
-    │
-    ├── out/
-    │   ├── a1 table.csv
-    │   ├── a2 table.csv
-    │   ├── a3 table.csv
-    │   ├── ...
-    │   └── c1 table.csv
-    │
-    └── src/
-        └── main.py
+	├── in/
+	│   └── USEcorpus/
+	│   	├── a1/
+	│   	├── a2/
+	│   	├── a3/
+	│   	├── ...
+	│   	└── c1/
+	│
+	├── out/
+	│   ├── a1 table.csv
+	│   ├── a2 table.csv
+	│   ├── a3 table.csv
+	│   ├── ...
+	│   └── c1 table.csv
+	│
+	└── src/
+    	└── main.py
 ```
 
 1. To finally execute the file, simply run the OS-appropriate bash script in the same Git Bash terminal:
@@ -71,15 +71,15 @@ To examine the output of the code, we can use one of the tables as an example:
 <tr><th>c1 table.csv</th></tr>
 <td>
 
-| Filename      | RelFreq NOUN | RelFreq VERB | RelFreq ADJ | RelFreq ADV | Unique PER | Unique LOC | Unique ORG |
+| Filename  	| RelFreq NOUN | RelFreq VERB | RelFreq ADJ | RelFreq ADV | Unique PER | Unique LOC | Unique ORG |
 |---------------|--------------|--------------|-------------|-------------|------------|------------|------------|
-| 0140.c1.txt   | 1777.16      | 1054.33      | 534.07      | 455.8       | 38         | 0          | 5          |
-| 0165.c1.txt   | 2084.55      | 976.68       | 694.85      | 340.14      | 27         | 0          | 3          |
-| 0200.c1.txt   | 1393.69      | 1209.05      | 768.31      | 601.55      | 17         | 0          | 8          |
-| 0219.c1.txt   | 1587.79      | 1122.14      | 648.85      | 557.25      | 26         | 0          | 6          |
-| 0238.c1.txt   | 1252.24      | 1332.74      | 456.17      | 330.95      | 18         | 0          | 3          |
-| 0501.c1.txt   | 1422.89      | 1184.42      | 532.59      | 492.85      | 14         | 0          | 5          |
-| 0502.c1.txt   | 1500.0       | 1384.06      | 492.75      | 463.77      | 15         | 0          | 5          |
+| 0140.c1.txt   | 1777.16  	| 1054.33  	| 534.07  	| 455.8   	| 38     	| 0      	| 5      	|
+| 0165.c1.txt   | 2084.55  	| 976.68   	| 694.85  	| 340.14  	| 27     	| 0      	| 3      	|
+| 0200.c1.txt   | 1393.69  	| 1209.05  	| 768.31  	| 601.55  	| 17     	| 0      	| 8      	|
+| 0219.c1.txt   | 1587.79  	| 1122.14  	| 648.85  	| 557.25  	| 26     	| 0      	| 6      	|
+| 0238.c1.txt   | 1252.24  	| 1332.74  	| 456.17  	| 330.95  	| 18     	| 0      	| 3      	|
+| 0501.c1.txt   | 1422.89  	| 1184.42  	| 532.59  	| 492.85  	| 14     	| 0      	| 5      	|
+| 0502.c1.txt   | 1500.0   	| 1384.06  	| 492.75  	| 463.77  	| 15     	| 0      	| 5      	|
 
 </td></table>
 
@@ -116,4 +116,4 @@ The script utilizes the SpaCy library to tokenize and analyze the text, extracti
 
 Additionally, it counts the total number of unique entities (persons, locations, and organizations) mentioned in each text. The extracted information is handled using pandas dataframes and is saved in CSV format, with each sub-folder corresponding to a separate CSV file containing a table with filenames and their extracted linguistic and entity information. The code is modularized for readability, with functions to process individual files and entire folders.
 
-TQDM is used for showing the scripts progress in its processing of each folder, and is mostly included for eye candy.
+TQDM is used for showing the scripts progress in its processing of each folder, helps the user track how far along the script is in its processing of the data.
