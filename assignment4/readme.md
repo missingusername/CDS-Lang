@@ -1,4 +1,4 @@
-# CDS Language Analytics: Assignment #4 - Emotion analysis using pretrained models
+# CDS Language Analytics Assignment #4: Emotion Analysis Using Pretrained Models
 
 ## Description
 This repository aims to use a pretrained emotion classifier to process a text dataset (the Game of Thrones script), and extract emotion labels for each line spoken in the show. This will then be plotted afterwards, showing the emotional distribution across the shows seasons.

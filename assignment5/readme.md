@@ -1,4 +1,4 @@
-# CDS Language Analytics: Assignment #5 - Environmental Impact of Portfolio
+# CDS Language Analytics Assignment #5: Environmental Impact of Portfolio
 
 ## Description
 This script aims to analyze estimated environmental impact of the other assignments in this repository. The other scripts have had their power usages tracked using CodeCarbon. The emissions are plotted using `matplotlib.pyplot`, using regular bar charts.

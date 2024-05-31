@@ -1,4 +1,4 @@
-# CDS Language Analytics: Assignment #2 - Text classification benchmarking
+# CDS Language Analytics Assignment #2: Binary Text Classification Cenchmarking
 
 ## Description
 This repository aims to train 2 different binary classifiers (MLP & LR) using sci-kit learn. A vectorizer script is used to pre-vectorize the data once, such that the MLP and LR scripts don't have to do it again. The end result produces 2 metric reports of the different classifiers, as well as saving the models.

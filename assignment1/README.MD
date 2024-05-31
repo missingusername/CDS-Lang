@@ -1,4 +1,4 @@
-# CDS Language Analytics: Assignment #1
+# CDS Language Analytics Assignment #1: Linguistic Feature Extraction
 This script aims to extract linguistic features from a text corpus ([USEcorpus](https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2457)), and arrange these feature statistics into organized `.csv` files.
 
 ***This code uses CodeCarbon to monitor the environmental effects of running this code. The effects of which can be found in the `out/emissions` folder***
