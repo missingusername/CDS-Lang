@@ -1,7 +1,7 @@
 # CDS Language Analytics: Assignment #2 - Text classification benchmarking
 
 ## Description
-This repository aims to train 2 different binary classifiers (MLP & LR) using sci-kit learn. A vectorizer script is used to pre-vecotrize the data once, such that the MLP and LR scripts dont have to do it again. The end results produces 2 metric reports of the different classifiers, as well as saving the models.
+This repository aims to train 2 different binary classifiers (MLP & LR) using sci-kit learn. A vectorizer script is used to pre-vectorize the data once, such that the MLP and LR scripts don't have to do it again. The end result produces 2 metric reports of the different classifiers, as well as saving the models.
 
 ***This code uses CodeCarbon to monitor the environmental effects of running this code. The effects of which can be found in the `out/emissions` folder***
 
@@ -36,24 +36,24 @@ bash unix_run.sh
 <tr><th>Logistic Regression</th><th>MLP</th></tr>
 <tr><td>
 
-| Class        | Precision | Recall | F1-Score | Support |
+| Class    	| Precision | Recall | F1-Score | Support |
 |--------------|-----------|--------|----------|---------|
-| FAKE         | 0.84      | 0.81   | 0.82     | 628     |
-| REAL         | 0.82      | 0.85   | 0.83     | 639     |
-| **Accuracy** |           |        | 0.83     | 1267    |
-| **Macro Avg**| 0.83      | 0.83   | 0.83     | 1267    |
-| **Weighted Avg** | 0.83  | 0.83   | 0.83     | 1267    |
+| FAKE     	| 0.84  	| 0.81   | 0.82 	| 628 	|
+| REAL     	| 0.82  	| 0.85   | 0.83 	| 639 	|
+| **Accuracy** |       	|    	| 0.83 	| 1267	|
+| **Macro Avg**| 0.83  	| 0.83   | 0.83 	| 1267	|
+| **Weighted Avg** | 0.83  | 0.83   | 0.83 	| 1267	|
 
 </td><td>
 
-| Class        | Precision | Recall | F1-Score | Support |
+| Class    	| Precision | Recall | F1-Score | Support |
 |--------------|-----------|--------|----------|---------|
-| FAKE         | 0.84      | 0.82   | 0.83     | 628     |
-| REAL         | 0.83      | 0.85   | 0.84     | 639     |
-| **Accuracy** |           |        | 0.84     | 1267    |
-| **Macro Avg**| 0.84      | 0.83   | 0.83     | 1267    |
-| **Weighted Avg** | 0.84  | 0.84   | 0.84     | 1267    |
+| FAKE     	| 0.84  	| 0.82   | 0.83 	| 628 	|
+| REAL     	| 0.83  	| 0.85   | 0.84 	| 639 	|
+| **Accuracy** |       	|    	| 0.84 	| 1267	|
+| **Macro Avg**| 0.84  	| 0.83   | 0.83 	| 1267	|
+| **Weighted Avg** | 0.84  | 0.84   | 0.84 	| 1267	|
 
 </td></tr> </table>
 
-From these 2 tabels we can see that both models actually end up performing remarkably well, and that it is hard to discern any real difference between their performances. However, we can notice that the `MLP` model does gain a small edge over the `LR` model in some areas, such as with its weighted avg. `F1-Score` being 0.1 higher.
+From these 2 tables we can see that both models actually end up performing remarkably well, and that it is hard to discern any real difference between their performances. However, we can notice that the `MLP` model does gain a small edge over the `LR` model in some areas, such as with its weighted avg. `F1-Score` being 0.1 higher.
