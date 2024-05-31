@@ -65,3 +65,9 @@ Yet again, we can see that `assignment 4` towers well above the rest, with `assi
 ![Assignment 4 emissions](out/a4%20emissions_chart.png)
 
 Here, we can see that the emotion classification script caused way more emission than the plotting, and that the emotion label extraction itself was way more taxing than the initialization of the model used for the classification. Again, this makes sense since the feature extraction is the most computationally expensive part of the program, and the rest of the code just processes the data that results from it.
+
+Overall, the resulting outputs from this and CodeCarbin in general yield an important insight into the computationally expensive and envionmental impacts of machine learning and its training. This can put into perspective the often times obfuscated nature of machine learning and AI, and the real physical impact it can have on the world. 
+
+## Limitations & improvements
+
+As mentioned, the importance of utilizing CodeCarbon to track your projected emissions is great, since it helps "realize" how great the impact of machine learning is. However, the emission results i have tracked are only for running the programs 1 time. When considering how many times i ran the scripts during their development, that is a lot of emissions that werent tracked, and therefore not counted in their actual environmental impact. Because of this, it might be better to use CodeCarbon from the get-go in future development, and have the emission tracking accumulated over time, to also show the environmental impact of the development itself.
