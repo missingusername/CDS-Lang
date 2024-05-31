@@ -66,7 +66,7 @@ Yet again, we can see that `assignment 4` towers well above the rest, with `assi
 
 Here, we can see that the emotion classification script caused way more emission than the plotting, and that the emotion label extraction itself was way more taxing than the initialization of the model used for the classification. Again, this makes sense since the feature extraction is the most computationally expensive part of the program, and the rest of the code just processes the data that results from it.
 
-Overall, the resulting outputs from this and CodeCarbin in general yield an important insight into the computationally expensive and envionmental impacts of machine learning and its training. This can put into perspective the often times obfuscated nature of machine learning and AI, and the real physical impact it can have on the world. 
+Overall, the resulting outputs from this and CodeCarbon in general yield an important insight into the computationally expensive and envionmental impacts of machine learning and its training. This can put into perspective the often times obfuscated nature of machine learning and AI, and the real physical impact it can have on the world. 
 
 ## Limitations & improvements
 
