@@ -15,7 +15,7 @@ git  clone  https://github.com/missingusername/cds-lang-git.git
 ```
 3. Navigate to the project folder for this assignment:
 ```sh
-cd  cds-lang-git/assignment2
+cd  cds-lang-git/assignment4
 ```
 4. Before running the program, you first have to set up a virtual environment with the required dependencies. This can be done by simply running either  `bash win_setup.sh`  or  `bash unix_setup.sh`  depending on your system.
 
