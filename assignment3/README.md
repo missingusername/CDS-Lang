@@ -66,4 +66,4 @@ From this printout we can see that it tells us what artist we searched for (`abb
 
 ## Limitations & Improvements
 
-The script takes a while to load the gensim model, and it does so every time you run the program. If one wanted to search for multiple artists and words, it might be more efficient to run the script recursively. Here, you could initialize the script and the model, and then enter what artist and word you want to search for, get teh results, reset the gathered data, and enter another artist and search word.
+The script takes a while to load the gensim model, and it does so every time you run the program. If one wanted to search for multiple artists and words, it might be more efficient to run the script recursively. Here, you could initialize the script and the model, and then enter what artist and word you want to search for, get the results, reset the gathered data, and enter another artist and search word.
